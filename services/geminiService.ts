@@ -2,10 +2,10 @@ import { GoogleGenerativeAI } from "@google/genai";
 import { InfographicData } from "../types";
 
 // Đọc API key từ Vite
-const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+const apiKey = import.meta.env.GEMINI_API_KEY;
 
 if (!apiKey) {
-  throw new Error("VITE_GEMINI_API_KEY is missing. Please add it to .env or Vercel Env Settings.");
+  throw new Error("GEMINI_API_KEY is missing. Please add it to .env or Vercel Env Settings.");
 }
 
 // Tạo Gemini client
