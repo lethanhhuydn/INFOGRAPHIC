@@ -1,36 +1,36 @@
 export enum LoadingState {
   IDLE = 'IDLE',
-  ANALYZING = 'ANALYZING', // Analyzing text/images
-  GENERATING_IMAGE = 'GENERATING_IMAGE', // Generating background
+  ANALYZING = 'ANALYZING',
+  GENERATING_IMAGE = 'GENERATING_IMAGE',
   COMPLETED = 'COMPLETED',
   ERROR = 'ERROR'
 }
 
-export type LayoutStyle = 'GRID_CARDS' | 'CONNECTED_FLOW' | 'ZIGZAG_TIMELINE';
+export type LayoutStyle =
+  | 'GRID_CARDS'
+  | 'CONNECTED_FLOW'
+  | 'ZIGZAG_TIMELINE';
 
+/** Một điểm nội dung trong infographic */
 export interface InfographicPoint {
   title: string;
   content: string;
-  icon: string; // Name of the icon to map to Lucide
+  icon?: string; // optional để tránh lỗi nếu API không cung cấp
 }
 
+/** Dữ liệu tổng hợp infographic */
 export interface InfographicData {
-  topic: string; // The main title
-  subtitle: string;
-  targetAudience: string; // e.g., "Học sinh THPT"
+  topic: string;
+  subtitle?: string;
+  targetAudience?: string;
   points: InfographicPoint[];
-  summary: string; // A concluding sentence
-  colorPalette: {
-    primary: string;
-    secondary: string;
-    background: string;
-    text: string;
-    accent: string;
-  };
-  layoutStyle?: LayoutStyle; // New field to determine visual style
+  summary?: string;
+
+  /** Mảng màu (3 màu chính) để khớp geminiService */
+  colorPalette: string[];
+
+  /** kiểu layout cho infographic */
+  layoutStyle?: LayoutStyle;
 }
 
-export interface GenerationResult {
-  data: InfographicData | null;
-  backgroundImageUrl: string | null;
-}
+/** Kết quả trả về c**
