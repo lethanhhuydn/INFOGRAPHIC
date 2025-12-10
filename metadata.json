@@ -1,5 +1,5 @@
 {
-  "name": "EduInfoGen - Tạo Infographic Dạy Học",
-  "description": "Ứng dụng tạo Infographic giáo dục tự động từ nội dung bài học, hỗ trợ tiếng Việt chuẩn xác, bố cục 4K.",
+  "name": "EduInfoGen",
+  "description": "Ung dung tao infographic giao duc tu dong tu noi dung bai hoc, ho tro tieng Viet, bo cuc 4K.",
   "requestFramePermissions": []
 }
