@@ -1,29 +1,23 @@
-{
-  "compilerOptions": {
-    "target": "ES2022",
-    "experimentalDecorators": true,
-    "useDefineForClassFields": false,
-    "module": "ESNext",
-    "lib": [
-      "ES2022",
-      "DOM",
-      "DOM.Iterable"
-    ],
-    "skipLibCheck": true,
-    "types": [
-      "node"
-    ],
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "allowJs": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@/*": [
-        "./*"
-      ]
-    },
-    "allowImportingTsExtensions": true,
-    "noEmit": true
-  }
+import { GoogleGenerativeAI } from "@google/genai";
+
+const apiKey = import.meta.env.VITE_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+const genAI = new GoogleGenerativeAI(apiKey);
+
+export async function analyzeContent(text: string, images: File[]) {
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
+  const input = text || "Tạo infographic trống.";
+  const result = await model.generateContent(input);
+  return {
+    topic: input.slice(0, 30),
+    summary: result.response.text(),
+    colorPalette: ["#4f46e5", "#6366f1", "#a5b4fc"],
+    layoutStyle: "GRID_CARDS"
+  };
+}
+
+export async function generateBackground(topic: string, colors: string[]) {
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+  const prompt = `Tạo ảnh nền phù hợp với chủ đề ${topic}, tông màu ${colors.join(", ")}`;
+  const result = await model.generateContent(prompt);
+  return result.response.text();
 }
