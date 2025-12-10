@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   BookOpen,
   Atom,
@@ -24,49 +24,111 @@ import {
   ArrowDown,
   CheckCircle,
   Settings,
-  Edit
-} from 'lucide-react';
+  Edit,
+} from "lucide-react";
 
 interface IconMapperProps {
-  iconName: string;
+  iconName?: string;
   className?: string;
   color?: string;
 }
 
 const IconMapper: React.FC<IconMapperProps> = ({ iconName, className, color }) => {
-  const normalizedName = iconName.toLowerCase().trim();
+  // Nếu không có icon → fallback luôn
+  if (!iconName || typeof iconName !== "string") {
+    console.warn("⚠ Missing or invalid iconName → fallback to Star");
+    return <Star className={className} color={color} />;
+  }
+
+  // Chuẩn hóa icon
+  const normalized = iconName.toLowerCase().trim().replace(/[\s\-]+/g, "");
+
   const props = { className, color };
 
-  switch (normalizedName) {
-    case 'book':
-    case 'bookopen': return <BookOpen {...props} />;
-    case 'atom': return <Atom {...props} />;
-    case 'brain': return <Brain {...props} />;
-    case 'calculator': return <Calculator {...props} />;
-    case 'globe': return <Globe {...props} />;
-    case 'history': return <History {...props} />;
-    case 'leaf': return <Leaf {...props} />;
-    case 'microscope': return <Microscope {...props} />;
-    case 'music': return <Music {...props} />;
-    case 'pentool':
-    case 'pen-tool': return <PenTool {...props} />;
-    case 'rocket': return <Rocket {...props} />;
-    case 'scale': return <Scale {...props} />;
-    case 'sun': return <Sun {...props} />;
-    case 'trophy': return <Trophy {...props} />;
-    case 'user': return <User {...props} />;
-    case 'lightbulb': return <Lightbulb {...props} />;
-    case 'zap': return <Zap {...props} />;
-    case 'star': return <Star {...props} />;
-    case 'target': return <Target {...props} />;
-    case 'heart': return <Heart {...props} />;
-    case 'arrowright': return <ArrowRight {...props} />;
-    case 'arrowdown': return <ArrowDown {...props} />;
-    case 'check':
-    case 'checkcircle': return <CheckCircle {...props} />;
-    case 'settings': return <Settings {...props} />;
-    case 'edit': return <Edit {...props} />;
-    default: return <Star {...props} />; // Default fallback
+  switch (normalized) {
+    case "book":
+    case "bookopen":
+    case "book-open":
+      return <BookOpen {...props} />;
+
+    case "atom":
+      return <Atom {...props} />;
+
+    case "brain":
+      return <Brain {...props} />;
+
+    case "calculator":
+      return <Calculator {...props} />;
+
+    case "globe":
+      return <Globe {...props} />;
+
+    case "history":
+      return <History {...props} />;
+
+    case "leaf":
+      return <Leaf {...props} />;
+
+    case "microscope":
+    case "microscopeicon":
+      return <Microscope {...props} />;
+
+    case "music":
+      return <Music {...props} />;
+
+    case "pentool":
+    case "pen-tool":
+      return <PenTool {...props} />;
+
+    case "rocket":
+      return <Rocket {...props} />;
+
+    case "scale":
+      return <Scale {...props} />;
+
+    case "sun":
+      return <Sun {...props} />;
+
+    case "trophy":
+      return <Trophy {...props} />;
+
+    case "user":
+      return <User {...props} />;
+
+    case "lightbulb":
+      return <Lightbulb {...props} />;
+
+    case "zap":
+      return <Zap {...props} />;
+
+    case "star":
+      return <Star {...props} />;
+
+    case "target":
+      return <Target {...props} />;
+
+    case "heart":
+      return <Heart {...props} />;
+
+    case "arrowright":
+      return <ArrowRight {...props} />;
+
+    case "arrowdown":
+      return <ArrowDown {...props} />;
+
+    case "check":
+    case "checkcircle":
+      return <CheckCircle {...props} />;
+
+    case "settings":
+      return <Settings {...props} />;
+
+    case "edit":
+      return <Edit {...props} />;
+
+    default:
+      console.warn(`⚠ Icon "${iconName}" not found → fallback to Star`);
+      return <Star {...props} />;
   }
 };
 
